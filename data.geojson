@@ -1,0 +1,74 @@
+{
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "id": 1, "properties": { "site": 1, "name": "Davenport Park", "y": "44.797536", "x": -68.77416 }, "geometry": { "type": "Point", "coordinates": [ -68.77416, 44.797536 ] } }
+,
+{ "type": "Feature", "id": 2, "properties": { "site": 2, "name": "Bangor House", "y": "44.79883", "x": -68.772658 }, "geometry": { "type": "Point", "coordinates": [ -68.772658, 44.79883 ] } }
+,
+{ "type": "Feature", "id": 3, "properties": { "site": 3, "name": "Isaac Farrar Mansion", "y": "44.799774", "x": -68.774675 }, "geometry": { "type": "Point", "coordinates": [ -68.774675, 44.799774 ] } }
+,
+{ "type": "Feature", "id": 4, "properties": { "site": 4, "name": "Thomas A. Hill House", "y": "44.799728", "x": -68.774439 }, "geometry": { "type": "Point", "coordinates": [ -68.774439, 44.799728 ] } }
+,
+{ "type": "Feature", "id": 5, "properties": { "site": 6, "name": "Hannibal Hamlin House", "y": "44.800718", "x": -68.779975 }, "geometry": { "type": "Point", "coordinates": [ -68.779975, 44.800718 ] } }
+,
+{ "type": "Feature", "id": 6, "properties": { "site": 7, "name": "Bangor Theological Seminary", "y": "44.801281", "x": -68.778237 }, "geometry": { "type": "Point", "coordinates": [ -68.778237, 44.801281 ] } }
+,
+{ "type": "Feature", "id": 7, "properties": { "site": 8, "name": "Joseph C. White House", "y": "44.803169", "x": -68.783623 }, "geometry": { "type": "Point", "coordinates": [ -68.783623, 44.803169 ] } }
+,
+{ "type": "Feature", "id": 8, "properties": { "site": 9, "name": "William Arnold House", "y": "44.802316", "x": -68.78446 }, "geometry": { "type": "Point", "coordinates": [ -68.78446, 44.802316 ] } }
+,
+{ "type": "Feature", "id": 9, "properties": { "site": 10, "name": "Harry W. Smith-William L. Miller House", "y": "44.801768", "x": -68.785039 }, "geometry": { "type": "Point", "coordinates": [ -68.785039, 44.801768 ] } }
+,
+{ "type": "Feature", "id": 10, "properties": { "site": 11, "name": "Joseph Low House", "y": "44.80728", "x": -68.782228 }, "geometry": { "type": "Point", "coordinates": [ -68.782228, 44.80728 ] } }
+,
+{ "type": "Feature", "id": 11, "properties": { "site": 12, "name": "Thomas Hill Standpipe", "y": "44.807356", "x": -68.782893 }, "geometry": { "type": "Point", "coordinates": [ -68.782893, 44.807356 ] } }
+,
+{ "type": "Feature", "id": 12, "properties": { "site": 13, "name": "Nathaniel Hatch House", "y": "44.803717", "x": -68.776799 }, "geometry": { "type": "Point", "coordinates": [ -68.776799, 44.803717 ] } }
+,
+{ "type": "Feature", "id": 13, "properties": { "site": 14, "name": "William Augustus Blake House", "y": "44.803656", "x": -68.776606 }, "geometry": { "type": "Point", "coordinates": [ -68.776606, 44.803656 ] } }
+,
+{ "type": "Feature", "id": 14, "properties": { "site": 15, "name": "Norumbega Parkway", "y": "44.802453", "x": -68.771842 }, "geometry": { "type": "Point", "coordinates": [ -68.771842, 44.802453 ] } }
+,
+{ "type": "Feature", "id": 15, "properties": { "site": 16, "name": "Kenduskeag Mall", "y": "44.802012", "x": -68.770941 }, "geometry": { "type": "Point", "coordinates": [ -68.770941, 44.802012 ] } }
+,
+{ "type": "Feature", "id": 16, "properties": { "site": 17, "name": "Bangor Savings Bank", "y": "44.802347", "x": -68.769182 }, "geometry": { "type": "Point", "coordinates": [ -68.769182, 44.802347 ] } }
+,
+{ "type": "Feature", "id": 17, "properties": { "site": 18, "name": "Wheelwright & Clark Block", "y": "44.802606", "x": -68.769289 }, "geometry": { "type": "Point", "coordinates": [ -68.769289, 44.802606 ] } }
+,
+{ "type": "Feature", "id": 18, "properties": { "site": 19, "name": "Pickering Block", "y": "44.800017", "x": -68.772272 }, "geometry": { "type": "Point", "coordinates": [ -68.772272, 44.800017 ] } }
+,
+{ "type": "Feature", "id": 19, "properties": { "site": 20, "name": "Morse & Co. Business Office", "y": "44.807523", "x": -68.777572 }, "geometry": { "type": "Point", "coordinates": [ -68.777572, 44.807523 ] } }
+,
+{ "type": "Feature", "id": 20, "properties": { "site": 21, "name": "Bangor Public Library", "y": "44.804562", "x": -68.772538 }, "geometry": { "type": "Point", "coordinates": [ -68.772538, 44.804562 ] } }
+,
+{ "type": "Feature", "id": 21, "properties": { "site": 22, "name": "Peirce Memorial", "y": "44.804562", "x": -68.772538 }, "geometry": { "type": "Point", "coordinates": [ -68.772538, 44.804562 ] } }
+,
+{ "type": "Feature", "id": 22, "properties": { "site": 23, "name": "Bangor City Hall", "y": "44.803291", "x": -68.77034 }, "geometry": { "type": "Point", "coordinates": [ -68.77034, 44.803291 ] } }
+,
+{ "type": "Feature", "id": 23, "properties": { "site": 24, "name": "John Ham House", "y": "44.806792", "x": -68.768366 }, "geometry": { "type": "Point", "coordinates": [ -68.768366, 44.806792 ] } }
+,
+{ "type": "Feature", "id": 24, "properties": { "site": 25, "name": "Philo A. Strickland House", "y": "44.807143", "x": -68.768624 }, "geometry": { "type": "Point", "coordinates": [ -68.768624, 44.807143 ] } }
+,
+{ "type": "Feature", "id": 25, "properties": { "site": 26, "name": "Samuel Smith House", "y": "44.807858", "x": -68.768667 }, "geometry": { "type": "Point", "coordinates": [ -68.768667, 44.807858 ] } }
+,
+{ "type": "Feature", "id": 26, "properties": { "site": 27, "name": "John A. French House", "y": "44.807447", "x": -68.768731 }, "geometry": { "type": "Point", "coordinates": [ -68.768731, 44.807447 ] } }
+,
+{ "type": "Feature", "id": 27, "properties": { "site": 28, "name": "Jones-Veazie Double House", "y": "44.805392", "x": -68.768238 }, "geometry": { "type": "Point", "coordinates": [ -68.768238, 44.805392 ] } }
+,
+{ "type": "Feature", "id": 28, "properties": { "site": 29, "name": "Edward Kent-Jonas Cutting Double House", "y": "44.804798", "x": -68.7671 }, "geometry": { "type": "Point", "coordinates": [ -68.7671, 44.804798 ] } }
+,
+{ "type": "Feature", "id": 29, "properties": { "site": 30, "name": "Jonathan Eddy House", "y": "44.804935", "x": -68.762744 }, "geometry": { "type": "Point", "coordinates": [ -68.762744, 44.804935 ] } }
+,
+{ "type": "Feature", "id": 30, "properties": { "site": 31, "name": "St. John’s Catholic Church", "y": "44.803946", "x": -68.761199 }, "geometry": { "type": "Point", "coordinates": [ -68.761199, 44.803946 ] } }
+,
+{ "type": "Feature", "id": 31, "properties": { "site": 32, "name": "Congregation Beth Israel Synagogue", "y": "44.802865", "x": -68.764547 }, "geometry": { "type": "Point", "coordinates": [ -68.764547, 44.802865 ] } }
+,
+{ "type": "Feature", "id": 32, "properties": { "site": 33, "name": "Charles W. Jenkins House", "y": "44.803519", "x": -68.764182 }, "geometry": { "type": "Point", "coordinates": [ -68.764182, 44.803519 ] } }
+,
+{ "type": "Feature", "id": 33, "properties": { "site": 34, "name": "Hayward Peirce House", "y": "44.803885", "x": -68.767851 }, "geometry": { "type": "Point", "coordinates": [ -68.767851, 44.803885 ] } }
+,
+{ "type": "Feature", "id": 34, "properties": { "site": 35, "name": "George K. Stetson House", "y": "44.804494", "x": -68.769225 }, "geometry": { "type": "Point", "coordinates": [ -68.769225, 44.804494 ] } }
+
+]
+}
