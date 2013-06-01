@@ -1,7 +1,7 @@
 InteractiveHistory.me
 =====================
 
-Bangor History Museum wants a website. They also have 40,000 unique historical articfacts.
+Bangor History Museum wants a website. They also have 40,000 unique historical artifacts.
 Can we do anything cool with this? Probably ;-)
 
 Goal
@@ -19,7 +19,7 @@ solvable problem. Location-based data, HTML5 location-aware browsers, and cell c
 
   1. Backend data store
   2. Admin interface to input data
-  3. Lookup mising gis coordinates if we only have addresses
+  3. Lookup missing gis coordinates if we only have addresses
   4. Solr-backend for proximity queries
   5. Very basic front end to display artifacts relevant to the current location
 
