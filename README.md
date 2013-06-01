@@ -1,4 +1,4 @@
-InteractiveHistory.me
+[InteractiveHistory.me](http://mainecivichackday.github.io/interactivehistory_me/)
 =====================
 
 Bangor History Museum wants a website. They also have 40,000 unique historical articfacts.
