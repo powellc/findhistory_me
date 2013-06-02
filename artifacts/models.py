@@ -6,6 +6,7 @@ from filebrowser_safe.fields import FileBrowseField
 from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import permalink
+from django.contrib.gis.db import models as gis_models
 
 from .utils import get_lat_long
 
@@ -39,6 +40,7 @@ class Location(StandardMetadata):
     state=USStateField(_('state'), blank=True, null=True)
     zipcode=models.CharField(_('zip'), max_length=5, blank=True, null=True)
     lat_long=models.CharField(_('lat and long coords'), max_length=255, blank=True, null=True)
+    point = gis_models.PointField()
 
     class Meta:
         verbose_name = _('location')

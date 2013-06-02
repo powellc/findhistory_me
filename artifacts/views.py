@@ -6,8 +6,67 @@ import uuid
 import time
 import urllib
 
+from django.core import serializers
+from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView, ListView, View
 from riak_crud import get_artifact, create_artifact
+
+from .models import Organization, Tour, Artifact
+
+class WhatsHereView(ListView):
+    model = Artifact
+    template_name = 'artifacts/whats_here.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(WhatsHereView, self).get_context_data(**kwargs)
+        # Here we need to do our geo lookup of artifacts based on our 
+        # current location given to us by the browser
+        context['artifacts'] = context['object_list'] = Artifact.objects.filter()
+        return context
+
+def get_nearby_artifacts(request, *args, **kwargs):
+    if kwargs['loc']:
+        artifacts = Artifact.objects.all()
+        data = serializers.serialize('json', artifacts)
+    else:
+        data = ''
+    return HttpResponse(data, mimetype='application/json')
+
+class OrganizationListView(ListView):
+    model = Organization
+
+
+class OrganizationDetailView(DetailView):
+    model = Organization
+
+
+class ArtifactDetailView(DetailView):
+    model = Artifact
+
+    def get_queryset(self, *args, **kwargs):
+        return Artifact.objects.filter(organization__slug=self.kwargs['organization_slug'])
+
+
+class ArtifactListView(ListView):
+    model = Artifact
+
+    def get_queryset(self, *args, **kwargs):
+        return Artifact.objects.filter(organization__slug=self.kwargs['organization_slug'])
+
+
+class TourListView(ListView):
+    model = ListView
+
+    def get_queryset(self, *args, **kwargs):
+        return Tour.objects.filter(organization__slug=self.kwargs['organization_slug'])
+
+
+class TourDetailView(DetailView):
+    model = DetailView
+
+    def get_queryset(self, *args, **kwargs):
+        return Tour.objects.filter(organization__slug=self.kwargs['organization_slug'])
 
 
 class CreateArtifactView(CreateView):

@@ -116,6 +116,7 @@ DEBUG = False
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 SITE_ID = 1
+SITE_TITLE = 'Interative History of Maine'
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -220,6 +221,7 @@ TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)
 ################
 
 INSTALLED_APPS = (
+    "history_theme",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
