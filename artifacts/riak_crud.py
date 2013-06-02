@@ -5,7 +5,7 @@ import uuid
 # client = riak.RiakClient()
 
 # For Protocol Buffers (go faster!)
-client = riak.RiakClient(port=8087, transport_class=riak.RiakPbcTransport)
+client = riak.RiakClient(port=10018, transport_class=riak.RiakPbcTransport)
 
 artifact_bucket = client.bucket('artifact')
 
