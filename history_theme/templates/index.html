@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block meta_title %}{% trans "Home" %}{% endblock %}
+{% block title %}{% trans "Home" %}{% endblock %}
+
+{% block breadcrumb_menu %}
+<li class="active">{% trans "Home" %}</li>
+{% endblock %}
+
+{% block main %}
+{% blocktrans %}
+<h2>Welcome to Interactive History in Maine!</h2>
+<p>
+    This website was developed as part of the 2013 Maine Civic Hackathon. It's a massive work in progress, but
+    the basic problem we were solving was archiving historical artifacts and providing a way for people to 
+    access them without being physically in the Bangor History Musuem. To that end, we have provided a 
+    rudimentary database for artifacts so the 40,000 items can begin to be input into a flexible document
+    store.
+</p>
+<p>
+    Moreover, the application can also turn physical street address on artifacts into latitude and longitude
+    coordiates, with the goal of allowing HTML5, location-aware web browsers to pull up artifacts within
+    a reasonable geographic location of the user (hopefully that is very close).
+</p>
+<p>
+    It also allows historical organizations to create "tours" of artifacts, with a start point. This allows
+    users to have a sense of where historical items physical locations are without having to guess by just
+    opening up the website.
+</p>
+<p>
+    Each tour has a unique URL, which can be turned into a QR code and published at the museum or around the
+    city, allowing mobile users to "just start" a tour.
+</p>
+{% endblocktrans %}
+<ul>
+    <li><a class="button" href="{% url 'whats_here' %}">What's here?</a></li>
+</ul>
+{% endblock %}
