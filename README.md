@@ -52,4 +52,16 @@ Installation (on EC2)
      increase ```solr_startup_wait``` time (it was timing out on an EC2 micro).
      See the sample [app.config](https://github.com/mainecivichackday/interactivehistory_me/blob/master/riak_config/app.config)
      file in this repo.
+  7. Start Riak: ```rel/riak/bin/riak start```
+     
+Testing Riak+Solr installation
+------------------------------
+  1. ```cd ~/riak-yokozuna-0.6.0-src/rel/riak```
+  2. Send a "riak ping": ```bin/riak ping```
+    Should respond with: ```pong```
+  3. Try a read/write test: ```bin/riak-admin test```
+    Should get back:
+    ```Successfully completed 1 read/write cycle to 'riak@127.0.0.1'```
+
+
      
