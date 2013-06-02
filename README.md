@@ -50,4 +50,6 @@ Installation (on EC2)
 
   6. Update the ```rel/riak/etc/app.config``` file, set n=1, enable yokozuna, 
      increase ```solr_startup_wait``` time (it was timing out on an EC2 micro).
+     See the sample [app.config](https://github.com/mainecivichackday/interactivehistory_me/blob/master/riak_config/app.config_
+     file in this repo.
      
