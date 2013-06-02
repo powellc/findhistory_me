@@ -42,10 +42,10 @@ Installation (on EC2)
     - ```make stage```
   5. Increase the [Open File limit](http://docs.basho.com/riak/latest/cookbooks/Open-Files-Limit/#Linux):
      Edit ```/etc/security/limits.conf``` and append the following lines to the file:
-      ```
-       *               soft     nofile          65536
-       *               hard     nofile          65536
-      ```
+     ```
+     *               soft     nofile          65536
+     *               hard     nofile          65536
+     ```
   6. Update the ```rel/riak/etc/app.config``` file, set n=1, enable yokozuna, 
      increase ```solr_startup_wait``` time (it was timing out on an EC2 micro).
      
