@@ -230,6 +230,7 @@ INSTALLED_APPS = (
     "django.contrib.sites",
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
+    "django.contrib.gis",
     "artifacts",
     "easy_thumbnails",
     "mezzanine.boot",

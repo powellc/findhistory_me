@@ -11,6 +11,8 @@ from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView, ListView, View
 from riak_crud import get_artifact, create_artifact
+from django.contrib.gis.geos import GEOSGeometry
+from django.contrib.gis.measure import D
 
 from .models import Organization, Tour, Artifact
 
@@ -27,7 +29,11 @@ class WhatsHereView(ListView):
 
 def get_nearby_artifacts(request, *args, **kwargs):
     if kwargs['loc']:
-        artifacts = Artifact.objects.all()
+        current_point = GEOSGeometry('POINT(%s)' % kwargs['loc'].replace(',', ' '))
+        distance = 1
+        while (len(artifacts) == 0) || (distance < 25):
+            artifacts = Artifact.objects.filter(point__distance_lte=(current_point,D(mi=distance)
+            distance += 4
         data = serializers.serialize('json', artifacts)
     else:
         data = ''

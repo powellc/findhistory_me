@@ -46,7 +46,6 @@ class Location(models.Model):
     zipcode=models.CharField(_('zip'), max_length=5, blank=True, null=True)
     lat_long=models.CharField(_('lat and long coords'), max_length=255, blank=True, null=True)
     point = gis_models.PointField(blank=True, null=True)
-    objects = gis_models.GeoManager()
 
     class Meta:
         abstract=True
@@ -81,6 +80,7 @@ class Location(models.Model):
 class Organization(Displayable, Location):
     phone = PhoneNumberField(blank=True, null=True)
     website = models.CharField(max_length=255, blank=True, null=True)
+    objects = gis_models.GeoManager()
 
     @permalink
     def get_absolute_url(self):
@@ -100,6 +100,7 @@ class Artifact(Displayable, Location):
     architect = models.CharField(max_length=255, blank=True, null=True)
     style = models.CharField(max_length=255, blank=True, null=True)
     type = models.ForeignKey(ArtifactType)
+    objects = gis_models.GeoManager()
 
     @permalink
     def get_absolute_url(self):
@@ -108,6 +109,7 @@ class Artifact(Displayable, Location):
 class Tour(Displayable, Location):
     image = models.ImageField(max_length=255, upload_to='tours')
     organization = models.ForeignKey(Organization)
+    objects = gis_models.GeoManager()
 
     @permalink
     def get_absolute_url(self):
@@ -116,4 +118,5 @@ class Tour(Displayable, Location):
 class TourStop(Location):
     order = models.IntegerField()
     artifacts = models.ManyToManyField(Artifact)
+    objects = gis_models.GeoManager()
 
