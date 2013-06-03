@@ -27,17 +27,24 @@ class WhatsHereView(ListView):
         context['artifacts'] = context['object_list'] = Artifact.objects.filter()
         return context
 
-def get_nearby_artifacts(request):
-    if self.request.GET['loc']:
-        current_point = GEOSGeometry('POINT(%s)' % kwargs['loc'].replace(',', ' '))
-        meters = 10
-        while (len(artifacts) == 0) or (distance < 1000):
-            artifacts = Artifact.objects.filter(point__distance_lte=(current_point,D(distance)))
-            distance += 10
+def get_nearby_artifacts(request, *args, **kwargs):
+    if kwargs['lat'] and kwargs['lng']:
+        if kwargs['lat'][0] == '-':
+            lat = kwargs['lat'][:3] + '.' + kwargs['lat'][3:]
+        else:
+            lat = kwargs['lat'][:2] + '.' + kwargs['lat'][2:]
+        if kwargs['lng'][0] == '-':
+            lng = kwargs['lng'][:3] + '.' + kwargs['lng'][3:]
+        else:
+            lng = kwargs['lng'][:2] + '.' + kwargs['lng'][2:]
+
+        current_point = GEOSGeometry('POINT(%s %s)' % (lat, lng))
+        meters = 5000
+        artifacts = Artifact.objects.filter(point__distance_lte=(current_point,D(m=meters)))
         data = serializers.serialize('json', artifacts)
-    else:
-        data = ''
-    return HttpResponse(data, mimetype='application/json')
+        else:
+            data = ''
+        return HttpResponse(data, mimetype='application/json')
 
 class OrganizationListView(ListView):
     model = Organization
