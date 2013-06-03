@@ -27,6 +27,10 @@ class StandardMetadata(models.Model):
         self.updated = datetime.now()
         super(StandardMetadata, self).save(*args, **kwargs)
 
+    def __unicode__(self):
+        return u'%s' % (self.title)
+
+
 # If using this with Mezzanine, use their StandardMetadata business, otherwise
 # use custom model
 try:
@@ -81,15 +85,10 @@ class Organization(Displayable, Location):
         return ('organization_detail', None, {'slug': self.slug})
 
 class ArtifactType(StandardMetadata):
-    title = models.CharField(max_length=255)
-    slug=models.SlugField(_('slug'), unique=True)
 
     @permalink
     def get_absolute_url(self):
         return ('artifact_type_detail', None, {'slug': self.slug})
-
-    def __unicode__(self):
-        return u'%s' % (self.title)
 
 class Artifact(Displayable, Location):
     organization = models.ForeignKey(Organization)
