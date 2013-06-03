@@ -328,18 +328,17 @@ DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
 # FILE STORAGE   #
 ##################
 
-DEFAULT_FILE_STORAGE = '.s3utils.MediaS3BotoStorage' 
-STATICFILES_STORAGE = '.s3utils.StaticS3BotoStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 AWS_ACCESS_KEY_ID = 'YOURACCESSKEY'
 AWS_SECRET_ACCESS_KEY = 'YOURSECRETACCESSKEY'
 AWS_STORAGE_BUCKET_NAME = 'findhistory.me'
+AWS_HEADERS = {
+   'ExpiresDefault': 'access plus 30 days',
+   'Cache-Control': 'max-age=86400',
+}
 
-S3_URL = 'http://%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-STATIC_DIRECTORY = '/static/'
-MEDIA_DIRECTORY = '/media/'
-STATIC_URL = S3_URL + STATIC_DIRECTORY
-MEDIA_URL = S3_URL + MEDIA_DIRECTORY
 
 ##################
 # LOCAL SETTINGS #
