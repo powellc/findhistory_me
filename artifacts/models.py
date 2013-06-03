@@ -46,6 +46,7 @@ class Location(models.Model):
     zipcode=models.CharField(_('zip'), max_length=5, blank=True, null=True)
     lat_long=models.CharField(_('lat and long coords'), max_length=255, blank=True, null=True)
     point = gis_models.PointField(blank=True, null=True)
+    objects = gis_models.GeoManager()
 
     class Meta:
         abstract=True
