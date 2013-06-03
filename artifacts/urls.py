@@ -6,7 +6,7 @@ from .views import OrganizationDetailView, OrganizationListView, ArtifactDetailV
 
 # custom views vendors
 urlpatterns = patterns('market.views',
-    #url(r'^whats-here/(?P<loc>[-\d]+)/$', view=get_nearby_artifacts, name="whats_here_lookup"),
+    url(r'^whats-here/(?P<lat>[-\d\w]+)/(?P<lng>[-\d\w]+)$', view=get_nearby_artifacts, name="whats_here_lookup"),
     url(r'^whats-here/$', view=WhatsHereView.as_view(), name="whats_here"),
     url(r'^(?P<organization_slug>[-\w]+)/artifacts/(?P<slug>[-\w]+)/', view=ArtifactDetailView.as_view(), name="artifact_detail"),
     url(r'^(?P<organization_slug>[-\w]+)/artifacts/', view=ArtifactListView.as_view(), name="artifact_list"),
