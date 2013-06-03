@@ -104,7 +104,6 @@ class Artifact(Displayable, Location):
         return ('artifact_detail', None, {'organization_slug':self.organization.slug, 'slug': self.slug})
 
 class Tour(Displayable, Location):
-    description = models.TextField(blank=True, null=True)
     image = models.ImageField(max_length=255, upload_to='tours')
     organization = models.ForeignKey(Organization)
 
