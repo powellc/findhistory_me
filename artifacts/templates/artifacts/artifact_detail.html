@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{object.organization}}{% endblock %}
+
+{% block main %}
+<h3>{{object}}</h3>
+<img src="{{object.image.url}}" width=300 style="float:right; margin-left:1em;" />
+<p>{{object.description}}</p>
+<p>Architect: {{object.architect}}</p>
+<p>Built: {{object.built}}</p>
+<p>Address: {{object.address}}</p>
+<br/>
+<br/>
+<br/>
+<p>
+              <div class="map" id="map" style="width:640px; height:400px;">
+		      <img src="http://maps.googleapis.com/maps/api/staticmap?center={{object.lat_long}}&zoom=18&size=640x400&sensor=false" />
+              </div>
+
+</p>
+
+
+{% endblock %}
