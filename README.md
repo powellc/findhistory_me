@@ -1,8 +1,10 @@
-[InteractiveHistory.me](http://mainecivichackday.github.io/interactivehistory_me/)
+[InteractiveHistory.me](http://http://23.21.88.45/)
 =====================
 
 Bangor History Museum wants a website. They also have 40,000 unique historical artifacts.
 Can we do anything cool with this? Probably ;-)
+
+Check out the alpha: http://23.21.88.45/
 
 Goal
 -----
