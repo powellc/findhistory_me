@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 
 {% block title %}{{object.organization}}{% endblock %}
 
 {% block main %}
 <h3>{{object}}</h3>
-<img src="{{object.image.url}}" width=300 style="float:right; margin-left:1em;" />
+<img src="{% thumbnail object.image 300x0 %}" width=300 style="float:right; margin-left:1em;" />
 <p>{{object.description}}</p>
 <p>Architect: {{object.architect}}</p>
 <p>Built: {{object.built}}</p>

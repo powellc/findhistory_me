@@ -27,8 +27,8 @@ urlpatterns = patterns("",
     # one homepage pattern, so if you use a different one, comment this
     # one out.
 
+    url("^organizations/", include('artifacts.urls')),
     url("^$", direct_to_template, {"template": "index.html"}, name="home"),
-    url("^", include('artifacts.urls')),
 
     # HOMEPAGE AS AN EDITABLE PAGE IN THE PAGE TREE
     # ---------------------------------------------
