@@ -3,9 +3,9 @@
 {% block title %}What's Here?!{% endblock %}
 
 {% block main %}
-<div id="carbonads-container"><div class="carbonad"><div id="azcarbon"></div><script type="text/javascript">var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = "http://engine.carbonads.com/z/14060/azcarbon_2_1_0_VERT"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script></div></div>
 <meta name="viewport" content="width=420" />
-<div id="results"></div>
+<h2>Artifacts near you</h2>
+<ul id="results"></ul>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <article>
       <p>Finding your location: <span id="status">checking...</span></p>
@@ -15,15 +15,18 @@ function success(position) {
   // On success, hit up the lookup url with the coordinates and
   // let's get back some json data with artifacts near here.
   var s = document.querySelector('#status');
-  lat = position.coords.latitude.replace('.','')
-  lng = position.coords.longitude.replace('.','')
+  var max_length = 7
+  lat = position.coords.latitude.toString().replace('.','').substring(0,max_length);
+  lng = position.coords.longitude.toString().replace('.','').substring(0,max_length);
   $.ajax({
-	  url: "{% url whats_here_lookup lat lng %}",
+	  url: "{% url 'whats_here' %}"+lat+"/"+lng,
 	  cache: false,
-	  success: function(html){
-		     $("#results").append(html);
-		   }
-	  });
+	  success: function(artifacts){
+                $.each(artifacts, function() {
+		  console.log(this);
+                  $("#results").append("<li id='artifact-"+ this.fields.id +"'>"+ this.fields.title+"</li>");
+                })
+	  }	
   });
   
   if (s.className == 'success') {
@@ -36,8 +39,8 @@ function success(position) {
   
   var mapcanvas = document.createElement('div');
   mapcanvas.id = 'mapcanvas';
-  mapcanvas.style.height = '100px';
-  mapcanvas.style.width = '100px';
+  mapcanvas.style.height = '200px';
+  mapcanvas.style.width = '200px';
     
   document.querySelector('article').appendChild(mapcanvas);
   
@@ -72,6 +75,5 @@ if (navigator.geolocation) {
   error('not supported');
 }
 </script>
-</div>
 {% endblock %}
 
