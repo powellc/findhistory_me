@@ -18,16 +18,7 @@ function success(position) {
   var max_length = 7
   lat = position.coords.latitude.toString().replace('.','').substring(0,max_length);
   lng = position.coords.longitude.toString().replace('.','').substring(0,max_length);
-  $.ajax({
-	  url: "{% url 'whats_here' %}"+lat+"/"+lng,
-	  cache: false,
-	  success: function(artifacts){
-                $.each(artifacts, function() {
-		  console.log(this);
-                  $("#results").append("<li id='artifact-"+ this.fields.id +"'>"+ this.fields.title+"</li>");
-                })
-	  }	
-  });
+  
   
   if (s.className == 'success') {
     // not sure why we're hitting this twice in FF, I think it's to do with a cached result coming back    
@@ -39,14 +30,14 @@ function success(position) {
   
   var mapcanvas = document.createElement('div');
   mapcanvas.id = 'mapcanvas';
-  mapcanvas.style.height = '200px';
-  mapcanvas.style.width = '200px';
+  mapcanvas.style.height = '400px';
+  mapcanvas.style.width = '600px';
     
   document.querySelector('article').appendChild(mapcanvas);
   
   var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
   var myOptions = {
-    zoom: 15,
+    zoom: 14,
     center: latlng,
     mapTypeControl: false,
     navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
@@ -58,6 +49,27 @@ function success(position) {
       position: latlng, 
       map: map, 
       title:"You are here! (at least within a "+position.coords.accuracy+" meter radius)"
+  });
+
+  $.ajax({
+	  url: "{% url 'whats_here' %}"+lat+"/"+lng,
+	  cache: false,
+	  success: function(artifacts){
+                results = artifacts
+                $.each(artifacts, function() {
+		  alat=this.fields.lat_long.split(',')[0];
+                  alng=this.fields.lat_long.split(',')[1];
+		  console.log('LatLng: ');
+		  console.log(alat); console.log(alng);
+                  $("#results").append("<li id='artifact-"+ this.fields.id +"'>"+ this.fields.title+"<p><img src={{MEDIA_ROOT}}"+this.fields.image+" /></p></li>");
+		  console.log(google.maps.LatLng(alat, alng));
+                  var artifact = new google.maps.Marker({
+			position: google.maps.LatLng(alat, alng),
+			map: map,
+			title: this.fields.title
+                  });
+                })
+	  }	
   });
 }
 
