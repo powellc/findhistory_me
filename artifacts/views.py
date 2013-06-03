@@ -32,7 +32,7 @@ def get_nearby_artifacts(request, *args, **kwargs):
         current_point = GEOSGeometry('POINT(%s)' % kwargs['loc'].replace(',', ' '))
         meters = 10
         while (len(artifacts) == 0) or (distance < 1000):
-            artifacts = Artifact.objects.filter(point__distance_lte=(current_point,D(distance)
+            artifacts = Artifact.objects.filter(point__distance_lte=(current_point,D(distance)))
             distance += 10
         data = serializers.serialize('json', artifacts)
     else:
