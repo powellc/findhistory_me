@@ -42,8 +42,6 @@ def get_nearby_artifacts(request, *args, **kwargs):
         meters = 5000
         artifacts = Artifact.objects.filter(point__distance_lte=(current_point,D(m=meters)))
         data = serializers.serialize('json', artifacts)
-        else:
-            data = ''
         return HttpResponse(data, mimetype='application/json')
 
 class OrganizationListView(ListView):
