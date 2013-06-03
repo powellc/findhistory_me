@@ -5,13 +5,26 @@
 {% block main %}
 <div id="carbonads-container"><div class="carbonad"><div id="azcarbon"></div><script type="text/javascript">var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = "http://engine.carbonads.com/z/14060/azcarbon_2_1_0_VERT"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script></div></div>
 <meta name="viewport" content="width=420" />
+<div id="results"></div>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
     <article>
       <p>Finding your location: <span id="status">checking...</span></p>
     </article>
 <script>
 function success(position) {
+  // On success, hit up the lookup url with the coordinates and
+  // let's get back some json data with artifacts near here.
   var s = document.querySelector('#status');
+  lat = position.coords.latitude.replace('.','')
+  lng = position.coords.longitude.replace('.','')
+  $.ajax({
+	  url: "{% url whats_here_lookup lat lng %}",
+	  cache: false,
+	  success: function(html){
+		     $("#results").append(html);
+		   }
+	  });
+  });
   
   if (s.className == 'success') {
     // not sure why we're hitting this twice in FF, I think it's to do with a cached result coming back    
@@ -23,8 +36,8 @@ function success(position) {
   
   var mapcanvas = document.createElement('div');
   mapcanvas.id = 'mapcanvas';
-  mapcanvas.style.height = '400px';
-  mapcanvas.style.width = '460px';
+  mapcanvas.style.height = '100px';
+  mapcanvas.style.width = '100px';
     
   document.querySelector('article').appendChild(mapcanvas);
   
