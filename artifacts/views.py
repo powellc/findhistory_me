@@ -27,8 +27,8 @@ class WhatsHereView(ListView):
         context['artifacts'] = context['object_list'] = Artifact.objects.filter()
         return context
 
-def get_nearby_artifacts(request, *args, **kwargs):
-    if kwargs['loc']:
+def get_nearby_artifacts(request):
+    if self.request.GET['loc']:
         current_point = GEOSGeometry('POINT(%s)' % kwargs['loc'].replace(',', ' '))
         meters = 10
         while (len(artifacts) == 0) or (distance < 1000):
