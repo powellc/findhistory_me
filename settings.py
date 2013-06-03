@@ -333,7 +333,7 @@ STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 AWS_ACCESS_KEY_ID = 'YOURACCESSKEY'
 AWS_SECRET_ACCESS_KEY = 'YOURSECRETACCESSKEY'
-AWS_STORAGE_BUCKET_NAME = 'findhistory.me'
+AWS_STORAGE_BUCKET_NAME = 'findhistory_me'
 AWS_HEADERS = {
    'ExpiresDefault': 'access plus 30 days',
    'Cache-Control': 'max-age=86400',
