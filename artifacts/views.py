@@ -30,10 +30,10 @@ class WhatsHereView(ListView):
 def get_nearby_artifacts(request, *args, **kwargs):
     if kwargs['loc']:
         current_point = GEOSGeometry('POINT(%s)' % kwargs['loc'].replace(',', ' '))
-        distance = 1
-        while (len(artifacts) == 0) || (distance < 25):
-            artifacts = Artifact.objects.filter(point__distance_lte=(current_point,D(mi=distance)
-            distance += 4
+        meters = 10
+        while (len(artifacts) == 0) or (distance < 1000):
+            artifacts = Artifact.objects.filter(point__distance_lte=(current_point,D(distance)
+            distance += 10
         data = serializers.serialize('json', artifacts)
     else:
         data = ''
