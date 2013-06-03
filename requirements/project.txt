@@ -1,5 +1,6 @@
 Mezzanine==1.4.7
 django-storages==1.1.8
+boto==2.9.5
 psycopg2==2.5
 gevent==0.13.8
 gunicorn==0.17.4
