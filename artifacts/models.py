@@ -1,12 +1,10 @@
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
-from mezzanine.pages.models import Page
 from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import permalink
 from django.contrib.gis.db import models as gis_models
-
 from .utils import get_lat_long
 
 class StandardMetadata(models.Model):
@@ -15,6 +13,9 @@ class StandardMetadata(models.Model):
 
 	Subclass new models from 'StandardMetadata' instead of 'models.Model'.
     """
+    title = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True)
+    description = models.TextField(blank=True, null=True)
     created = models.DateTimeField(default=datetime.now, editable=False)
     updated = models.DateTimeField(default=datetime.now, editable=False)
     created_by = models.ForeignKey(User)
@@ -26,14 +27,14 @@ class StandardMetadata(models.Model):
         self.updated = datetime.now()
         super(StandardMetadata, self).save(*args, **kwargs)
 
+# If using this with Mezzanine, use their StandardMetadata business, otherwise
+# use custom model
+try:
+    from mezzanine.core.models import Displayable
+except:
+    Displayable = StandardMetadata
+
 class Location(StandardMetadata):
-    """Location model.
-
-        Just a simple way to keep track of where a market is being held.
-        Contains just a name, slug, address, and description."""
-
-    title=models.CharField(_('title'), max_length=255)
-    slug=models.SlugField(_('slug'), unique=True)
     address=models.CharField(_('address'), max_length=255, blank=True, null=True)
     city=models.CharField(_('city'), max_length=100, blank=True, null=True)
     state=USStateField(_('state'), blank=True, null=True)
@@ -42,9 +43,7 @@ class Location(StandardMetadata):
     point = gis_models.PointField(blank=True, null=True)
 
     class Meta:
-        verbose_name = _('location')
-        verbose_name_plural = _('locations')
-        ordering = ('city',)
+        abstract=True
 
     def __unicode__(self):
         return u'%s' % (self.title)
@@ -73,7 +72,7 @@ class Location(StandardMetadata):
 
         super(Location, self).save()
 
-class Organization(Page, Location):
+class Organization(Displayable, Location):
     phone = PhoneNumberField(blank=True, null=True)
     website = models.CharField(max_length=255, blank=True, null=True)
 
@@ -92,10 +91,9 @@ class ArtifactType(StandardMetadata):
     def __unicode__(self):
         return u'%s' % (self.title)
 
-class Artifact(Location):
+class Artifact(Displayable, Location):
     organization = models.ForeignKey(Organization)
     inventory_id = models.CharField(max_length=255, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
     image = models.ImageField(max_length=255, upload_to='artifacts')
     built = models.CharField(max_length=6, blank=True, null=True)
     architect = models.CharField(max_length=255, blank=True, null=True)
@@ -106,7 +104,7 @@ class Artifact(Location):
     def get_absolute_url(self):
         return ('artifact_detail', None, {'organization_slug':self.organization.slug, 'slug': self.slug})
 
-class Tour(Location):
+class Tour(Displayable, Location):
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(max_length=255, upload_to='tours')
     organization = models.ForeignKey(Organization)
