@@ -34,7 +34,7 @@ try:
 except:
     Displayable = StandardMetadata
 
-class Location(StandardMetadata):
+class Location(models.Model):
     address=models.CharField(_('address'), max_length=255, blank=True, null=True)
     city=models.CharField(_('city'), max_length=100, blank=True, null=True)
     state=USStateField(_('state'), blank=True, null=True)
