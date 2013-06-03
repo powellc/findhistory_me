@@ -5,6 +5,7 @@ from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import permalink
 from django.contrib.gis.db import models as gis_models
+from django.contrib.gis.geos import GEOSGeometry
 from .utils import get_lat_long
 
 class StandardMetadata(models.Model):
@@ -71,7 +72,7 @@ class Location(models.Model):
         if not self.lat_long:
             location = "%s+%s+%s" % (self.city, self.state, self.zipcode)
             self.lat_long = get_lat_long(location)
-        #self.point = Point(self.latitude, self.longitude)
+        self.point = GEOSGeometry('POINT(%s)' % self.lat_long.replace(',', ' '))
 
 
         super(Location, self).save()
