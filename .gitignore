@@ -1,2 +1,4 @@
 .idea
 *.pyc
+local_settings.py
+dev.db
