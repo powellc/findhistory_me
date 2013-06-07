@@ -14,27 +14,37 @@
 {% block main %}
 {% blocktrans %}
 <h2>Welcome to Interactive History in Maine!</h2>
-<p>
-    This website was developed as part of the 2013 Maine Civic Hackathon. It's a massive work in progress, but
-    the basic problem we were solving was archiving historical artifacts and providing a way for people to 
-    access them without being physically in the Bangor History Musuem. To that end, we have provided a 
-    rudimentary database for artifacts so the 40,000 items can begin to be input into a flexible document
-    store.
-</p>
-<p>
-    Moreover, the application can also turn physical street address on artifacts into latitude and longitude
-    coordiates, with the goal of allowing HTML5, location-aware web browsers to pull up artifacts within
-    a reasonable geographic location of the user (hopefully that is very close).
-</p>
-<p>
-    It also allows historical organizations to create "tours" of artifacts, with a start point. This allows
-    users to have a sense of where historical items physical locations are without having to guess by just
-    opening up the website.
-</p>
-<p>
-    Each tour has a unique URL, which can be turned into a QR code and published at the museum or around the
-    city, allowing mobile users to "just start" a tour.
-</p>
 {% endblocktrans %}
+<div class="container">
+    <div class="span5">
+        <h3>Finding history?</h3>
+        <p>
+            This website was developed as part of the 2013 Maine Civic Hackathon. It's a massive work in progress, but
+            the basic problem we were solving was archiving historical artifacts and providing a way for people to 
+            access them without being physically in the Bangor History Musuem. To that end, we have provided a 
+            rudimentary database for artifacts so the 40,000 items can begin to be input into a flexible document
+            store.
+        </p>
+    </div>
+{% comment %}
+<p>Moreover, the application can also turn physical street address on artifacts into latitude and longitude
+coordiates, with the goal of allowing HTML5, location-aware web browsers to pull up artifacts within
+a reasonable geographic location of the user (hopefully that is very close).</p>
+<p>It also allows historical organizations to create "tours" of artifacts, with a start point. This allows
+users to have a sense of where historical items physical locations are without having to guess by just
+opening up the website.</p>
+
+<p>Each tour has a unique URL, which can be turned into a QR code and published at the museum or around the 
+city, allowing mobile users to "just start" a tour.</p>
+{% endcomment %}
+    <div class="span5">
+        <h3>Have history for us?</h3>
+        <p>At the end of the day, this site is nothing without actual historical arifacts, curated by the 
+        amazing historical organizations around Maine.</p>
+
+        <p>Do you have a collection that could benefit from allowing people to easily search, expore and tour?
+        Register for an account today, and get started inputing valuable data and help make Maine history
+        easier to find and more accessible.</p>
+    </div>
 
 {% endblock %}

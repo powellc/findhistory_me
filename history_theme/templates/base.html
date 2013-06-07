@@ -17,7 +17,8 @@
 
 {% compress css %}
 <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
-<link rel="stylesheet" href="{% static "css/mezzanine.css" %}">
+<!-- Loading Flat UI -->
+<link href="{% static "css/flat-ui.css" %}" rel="stylesheet">
 <link rel="stylesheet" href="{% static "css/bootstrap-responsive.css" %}">
 {% if LANGUAGE_BIDI %}
 <link rel="stylesheet" href="{% static "css/rtl.css" %}">
@@ -28,6 +29,7 @@
 <link rel="stylesheet" href="{% static "css/cartridge.rtl.css" %}">
 {% endif %}
 {% endifinstalled %}
+<link rel="stylesheet" href="{% static "css/mezzanine.css" %}">
 {% block extra_css %}{% endblock %}
 {% endcompress %}
 
@@ -48,18 +50,22 @@
 
 <div class="navbar navbar-fixed-top">
 <div class="navbar-inner">
-<div class="container">
+  <div class="container">
+    <a class="brand" href="/"><img src="{% static "images/findhistory-logo.png" %}" width="" height="1200" /></a>
     <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
     </a>
-    {% if settings.SITE_TITLE %}<a class="brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
-</div>
+    <div class="nav-collapse collapse">
+      <ul class="nav nav-list navlist-menu-level-{{ branch_level }}">
+        {% page_menu "pages/menus/tree.html" %}
+      </ul>
+    </div>
 </div>
 </div>
 
-<div class="container">
+<div class="container primary">
 
 {% nevercache %}
 {% for message in messages %}
@@ -69,30 +75,32 @@
 {% endfor %}
 {% endnevercache %}
 
-
-<h1>{% block title %}{% endblock %}</h1>
-
+{% comment %}
 <ul class="breadcrumb">
 {% spaceless %}
 {% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %}
 {% endspaceless %}
 </ul>
+{% endcomment %}
 
 </div>
 
 <div class="container">
 <div class="row">
 
+{% comment %}
 <div class="span2 left">
     {% block left_panel %}
     <div class="panel tree">{% page_menu "pages/menus/tree.html" %}</div>
     {% endblock %}
 </div>
+{% endcomment %}
 
-<div class="span7 middle">
+<div class="span12 middle">
     {% block main %}{% endblock %}
 </div>
 
+{% comment %}
 <div class="span3 right">
     {% nevercache %}
     {% include "includes/user_panel.html" %}
@@ -105,13 +113,13 @@
     {% endblock %}
     </div>
 </div>
+{% endcomment %}
 
 </div>
 </div>
 
 <footer>
 <div class="container">
-{% page_menu "pages/menus/footer.html" %}
 <p>
     {% trans "Powered by" %}
     <a href="http://mezzanine.jupo.org">Mezzanine</a>{% ifinstalled cartridge.shop %},
