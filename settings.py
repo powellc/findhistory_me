@@ -234,7 +234,7 @@ INSTALLED_APPS = (
     "django.contrib.gis",
     "artifacts",
     "dajaxice",
-    "easy_thumbnails",
+    "sorl",
     "mezzanine.boot",
     "mezzanine.conf",
     "mezzanine.core",

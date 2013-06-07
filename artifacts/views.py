@@ -13,6 +13,7 @@ from django.views.generic import DetailView, ListView, View
 from riak_crud import get_artifact, create_artifact
 from django.contrib.gis.geos import GEOSGeometry
 from django.contrib.gis.measure import D
+from django.template.loader import render_to_string
 
 from .models import Organization, Tour, Artifact
 
@@ -41,8 +42,9 @@ def get_nearby_artifacts(request, *args, **kwargs):
         current_point = GEOSGeometry('POINT(%s %s)' % (lat, lng))
         meters = 5000
         artifacts = Artifact.objects.filter(point__distance_lte=(current_point,D(m=meters)))
-        data = serializers.serialize('json', artifacts)
-        return HttpResponse(data, mimetype='application/json')
+        html = render_to_string('artifacts/_artifact_list.html', {'object_list':artifacts})
+        #data = serializers.serialize('json', artifacts)
+        return HttpResponse(html, mimetype='application/json')
 
 class OrganizationListView(ListView):
     model = Organization
