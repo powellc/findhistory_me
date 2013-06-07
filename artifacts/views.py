@@ -43,7 +43,7 @@ def get_nearby_artifacts(request, *args, **kwargs):
         #  TODO: Search close and go out until we find a threshold of artifacts
         meters = 5000
         artifacts = Artifact.objects.filter(point__distance_lte=(current_point,D(m=meters)))
-        if request.GET['json']:
+        if getattr(request.GET, 'json', False):
             data = serializers.serialize('json', artifacts)
             return HttpResponse(data, mimetype='application/json')
         else:

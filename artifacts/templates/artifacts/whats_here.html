@@ -54,9 +54,9 @@ function success(position) {
   $.ajax({
 	  url: "{% url 'whats_here' %}"+lat+"/"+lng,
 	  cache: false,
-	  success: function(artifacts){
-                results = artifacts
-                    $("#results").append(html);
+	  success: function(html){
+		console.log(html)
+                $("#results").append(html);
           }
   });
 }
