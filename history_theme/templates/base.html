@@ -1,4 +1,6 @@
 <!doctype html>
+{% load dajaxice_templatetags %}
+
 <html lang="{{ LANGUAGE_CODE }}"{% if LANGUAGE_BIDI %} dir="rtl"{% endif %}>
 {% load pages_tags mezzanine_tags i18n future staticfiles %}
 <head>
@@ -37,6 +39,7 @@
 <script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
 <script src="{% static "js/bootstrap.js" %}"></script>
 <script src="{% static "js/bootstrap-extras.js" %}"></script>
+{% dajaxice_js_import %}
 {% block extra_js %}{% endblock %}
 {% endcompress %}
 <!--[if lt IE 9]>

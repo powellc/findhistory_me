@@ -3,7 +3,8 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
 from mezzanine.core.views import direct_to_template
-
+from dajaxice.core import dajaxice_autodiscover, dajaxice_config
+dajaxice_autodiscover()
 
 admin.autodiscover()
 
@@ -28,6 +29,7 @@ urlpatterns = patterns("",
     # one out.
 
     url("^organizations/", include('artifacts.urls')),
+    url(dajaxice_config.dajaxice_url, include('dajaxice.urls')),
     url("^$", direct_to_template, {"template": "index.html"}, name="home"),
 
     # HOMEPAGE AS AN EDITABLE PAGE IN THE PAGE TREE

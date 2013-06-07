@@ -6,3 +6,4 @@ gevent==0.13.8
 gunicorn==0.17.4
 django-extensions==1.1.1
 easy-thumbnails==1.2
+django-dajaxice==0.5.5
