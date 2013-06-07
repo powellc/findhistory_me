@@ -56,20 +56,8 @@ function success(position) {
 	  cache: false,
 	  success: function(artifacts){
                 results = artifacts
-                $.each(artifacts, function() {
-		  alat=this.fields.lat_long.split(',')[0];
-                  alng=this.fields.lat_long.split(',')[1];
-		  console.log('LatLng: ');
-		  console.log(alat); console.log(alng);
-                  $("#results").append("<li id='artifact-"+ this.fields.id +"'>"+ this.fields.title+"<p><img src={{MEDIA_ROOT}}"+this.fields.image+" /></p></li>");
-		  console.log(google.maps.LatLng(alat, alng));
-                  var artifact = new google.maps.Marker({
-			position: google.maps.LatLng(alat, alng),
-			map: map,
-			title: this.fields.title
-                  });
-                })
-	  }	
+                    $("#results").append(html);
+          }
   });
 }
 

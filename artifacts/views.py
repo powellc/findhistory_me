@@ -40,11 +40,15 @@ def get_nearby_artifacts(request, *args, **kwargs):
             lng = kwargs['lng'][:2] + '.' + kwargs['lng'][2:]
 
         current_point = GEOSGeometry('POINT(%s %s)' % (lat, lng))
+        #  TODO: Search close and go out until we find a threshold of artifacts
         meters = 5000
         artifacts = Artifact.objects.filter(point__distance_lte=(current_point,D(m=meters)))
-        html = render_to_string('artifacts/_artifact_list.html', {'object_list':artifacts})
-        #data = serializers.serialize('json', artifacts)
-        return HttpResponse(html, mimetype='application/json')
+        if request.GET['json']:
+            data = serializers.serialize('json', artifacts)
+            return HttpResponse(data, mimetype='application/json')
+        else:
+            html = render_to_string('artifacts/_artifact_list.html', {'object_list':artifacts})
+            return HttpResponse(html, mimetype='text/html')
 
 class OrganizationListView(ListView):
     model = Organization
