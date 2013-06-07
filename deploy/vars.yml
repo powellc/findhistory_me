@@ -1,0 +1,21 @@
+---
+project_name: pypi_fiveq_com
+project_root: /var/www/vhosts/pypi_fiveq_com
+project_repo: git@bitbucket.org:fiveq/pypi_fiveq_com
+system_packages:
+  - build-essential
+  - git
+  - libevent-dev
+  - nginx
+  - postgresql
+  - postgresql-server-dev-all
+  - python-dev
+  - python-setuptools
+  - postfix
+python_packages:
+  - pip
+  - virtualenv
+  - gevent
+  - gunicorn
+initfiles:
+  - gunicorn

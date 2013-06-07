@@ -1,0 +1,17 @@
+[remote:children]
+production
+staging
+
+[servers:children]
+production
+staging
+local
+
+[production]
+ci.onec.me nickname=production vm=0 branch=master
+
+[staging]
+staging-pypi.fiveq.com nickname=staging vm=0 branch=develop
+
+[local]
+11.0.0.11 nickname=local vm=1 branch=develop
