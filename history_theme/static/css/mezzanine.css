@@ -13,7 +13,7 @@ li {line-height:20px;}
 
 .navbar img { box-shadow:none; }
 /* Navigation */
-body {padding-top:45px; background: url('/static/images/portland-1900-header.jpg'); }
+body {padding-top:45px; background: url('https://findhistory_me.s3.amazonaws.com/images/portland-1900-header.jpg'); }
 @media (max-width:979px){
     body {padding-top:0;} .brand {padding-right:20px !important; }}
 .navbar { z-index:500; background:none; }

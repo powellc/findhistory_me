@@ -216,7 +216,6 @@ ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 # Don't forget to use absolute paths, not relative paths.
 TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)
 
-
 ################
 # APPLICATIONS #
 ################
@@ -234,7 +233,7 @@ INSTALLED_APPS = (
     "django.contrib.gis",
     "artifacts",
     "dajaxice",
-    "easy_thumbnails",
+    "sorl.thumbnail",
     "mezzanine.boot",
     "mezzanine.conf",
     "mezzanine.core",

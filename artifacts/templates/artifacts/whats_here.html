@@ -25,7 +25,7 @@ function success(position) {
     return;
   }
   
-  s.innerHTML = "Great! We think you're within " + position.coords.accuracy + " meters of here.";
+  s.innerHTML = "We think you're within " + position.coords.accuracy + " meters of here.";
   s.className = 'success';
   
   var mapcanvas = document.createElement('div');
@@ -54,22 +54,10 @@ function success(position) {
   $.ajax({
 	  url: "{% url 'whats_here' %}"+lat+"/"+lng,
 	  cache: false,
-	  success: function(artifacts){
-                results = artifacts
-                $.each(artifacts, function() {
-		  alat=this.fields.lat_long.split(',')[0];
-                  alng=this.fields.lat_long.split(',')[1];
-		  console.log('LatLng: ');
-		  console.log(alat); console.log(alng);
-                  $("#results").append("<li id='artifact-"+ this.fields.id +"'>"+ this.fields.title+"<p><img src={{MEDIA_ROOT}}"+this.fields.image+" /></p></li>");
-		  console.log(google.maps.LatLng(alat, alng));
-                  var artifact = new google.maps.Marker({
-			position: google.maps.LatLng(alat, alng),
-			map: map,
-			title: this.fields.title
-                  });
-                })
-	  }	
+	  success: function(html){
+		console.log(html)
+                $("#results").append(html);
+          }
   });
 }
 
