@@ -1,4 +1,4 @@
-[InteractiveHistory.me](http://http://23.21.88.45/)
+[findhistory.me](http://http://23.21.88.45/)
 =====================
 
 Bangor History Museum wants a website. They also have 40,000 unique historical artifacts.
