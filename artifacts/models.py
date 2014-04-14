@@ -1,7 +1,7 @@
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.localflavor.us.models import PhoneNumberField, USStateField
+from localflavor.us.models import PhoneNumberField, USStateField
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import permalink
 from django.contrib.gis.db import models as gis_models
