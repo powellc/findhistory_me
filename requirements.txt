@@ -1,4 +1,5 @@
 django==1.6.1
+Pillow==2.0.0
 Mezzanine==3.0.0
 django-storages==1.1.8
 filebrowser_safe==0.2.31
