@@ -1,0 +1,15 @@
+
+language: python
+python:
+  - "2.6"
+  - "2.7"
+
+install:
+  - "pip install -r requirements.txt --use-mirrors"
+
+before_script:
+  - psql -c 'create database fhm;' -U postgres
+  - psql -c 'CREATE EXTENSION postgis;' -U postgres -d fhm
+  - psql -c 'CREATE EXTENSION postgis_topology;' -U postgres -d fhm
+
+script: "python manage.py test"

@@ -1,6 +1,8 @@
 from django.contrib import admin
 
-from .models import Artifact, Organization, Tour, ArtifactType, TourStop
+from .models import (Artifact, Organization, Tour, ArtifactType, TourStop,
+                     Location)
+
 
 class SlugAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
@@ -10,7 +12,8 @@ admin.site.register(Organization, SlugAdmin)
 
 
 class TourStopInline(admin.TabularInline):
-    model=TourStop
+    model = TourStop
+
 
 class TourAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
@@ -21,7 +24,15 @@ class TourAdmin(admin.ModelAdmin):
 admin.site.register(Tour, TourAdmin)
 
 
-class ArtifactAdmin(admin.ModelAdmin):
-    prepopulated_fields = {"slug": ("title",)}
+class ArtifactAdmin(SlugAdmin):
+    pass
 
 admin.site.register(Artifact, ArtifactAdmin)
+
+
+class LocationAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("address", "city", "state",)}
+    list_display = ('address', 'city', 'state')
+    list_filter = ('city', 'state')
+
+admin.site.register(Location, LocationAdmin)

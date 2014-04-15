@@ -111,8 +111,6 @@ class Common(Configuration):
         'dajaxice.finders.DajaxiceFinder',
     )
 
-    GOOGLE_API_KEY = "ABQIAAAATux_aKmAEX7DnojAr8SqlRRaty8kQfKELltUuVAn-OpfdO7k-xQ55ALwLa7MSyKCpJU1w0cHtjYMYw"
-
     AUTHENTICATION_BACKENDS = ("mezzanine.core.auth_backends.MezzanineBackend",)
 
     TEMPLATE_DIRS = (

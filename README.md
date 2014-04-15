@@ -1,6 +1,11 @@
 findhistory.me
 ==============
 
+Master: [![Build
+Status](https://travis-ci.org/powellc/findhistory_me.svg?branch=master)](https://travis-ci.org/powellc/findhistory_me)
+Develop: [![Build
+Status](https://travis-ci.org/powellc/findhistory_me.svg?branch=develop)](https://travis-ci.org/powellc/findhistory_me)
+
 Bangor History Museum wants a website. They also have 40,000 unique historical artifacts.
 Can we do anything cool with this? Probably ;-)
 
