@@ -1,0 +1,37 @@
+# Rename this file local_settings.py and customize for your environment (local dev, staging, live, etc.)
+
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+LOCAL_DEV = False
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': '{{ dbname }}',
+	'USER': '{{ dbuser }}',
+	'PASSWORD': '{{ dbpassword }}',
+	'HOST': '127.0.0.1'
+
+    }
+}
+
+
+CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+CACHE_MIDDLEWARE_SECONDS = 30
+CACHE_MIDDLEWARE_KEY_PREFIX = 'lam'
+CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True
+
+# Use run_fakemail.sh to test email delivery locally 
+EMAIL_HOST = 'localhost'
+EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = ''
+EMAIL_PORT = 10025
+
+SSL_FLAG=False
+
+#may have to modify this location, depending on local setup
+CACHE_BACKEND = 'file:///var/tmp/lam_django_cache'
+CACHE_TIMEOUT = 30
+CACHE_MIDDLEWARE_SECONDS = 30
+CACHE_MIDDLEWARE_KEY_PREFIX = 'LAM'
+CACHE_MIDDLEWARE_ANONYMOUS_ONLY = True

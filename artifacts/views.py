@@ -1,7 +1,7 @@
 # Views here are heavily modified from traditional Django views
 # Instead of using the ORM, we're going to hack up a Riak interface
 # So that artifact data is stored there instead of the default DB
-import riak
+#import riak
 import uuid
 import time
 import urllib
@@ -10,7 +10,7 @@ from django.core import serializers
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView, ListView, View
-from riak_crud import get_artifact, create_artifact
+#from riak_crud import get_artifact, create_artifact
 from django.contrib.gis.geos import GEOSGeometry
 from django.contrib.gis.measure import D
 from django.template.loader import render_to_string

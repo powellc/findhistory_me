@@ -1,0 +1,30 @@
+---
+  # Install H
+- name: Install Hubot & deps
+  npm: name=$item global=yes
+  with_items:
+    - hubot
+    - coffee-script
+
+- name: Clone Floyd
+  git: repo={{ project_repo }} dest={{ project_root }}
+
+- name: Install Skype4Py
+  easy_install: Skype4Py
+
+- name: Install npm requirements
+  npm: path={{ project_root }}
+
+- name: Install supervisor configuration file.
+  template: src=supervisor.conf.j2 dest="/etc/supervisor/conf.d/{{deployment_name}}.conf"
+  register: supervisor_conf
+
+#Create configs
+- name: create start.sh 
+  template: src=start.sh.j2 dest={{ project_root}}/{{ deployment_name }}/start.sh mode=0744
+  register: hubot_config
+
+- name: Restart supervisor
+  service: name=supervisor state=restarted enabled=yes
+  sudo_user: root
+  when: supervisor_conf.changed

@@ -1,0 +1,12 @@
+---
+  - name: Install MySQL packages
+    apt: pkg=${item} state=installed update-cache=yes
+    with_items: 
+      - mysql-server
+      - python-mysqldb
+
+  - name: Create the database.
+    mysql_db: name=${dbname} state=present
+
+  - name: Create database user.
+    mysql_user: name=${dbname} user=${dbuser} password=${dbpassword} state=present priv=${dbname}.*:ALL

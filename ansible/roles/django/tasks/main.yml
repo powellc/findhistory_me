@@ -1,0 +1,45 @@
+---
+  - name: Install pip and virtualenv
+    easy_install: name={{item}}
+    with_items:
+      - pip==1.4
+      - virtualenv==1.9
+
+  - name: Create the SSH directory.
+    sudo_user: "{{ deployment_name }}"
+    file: state=directory path={{project_root}}/.ssh/
+
+  - name: Upload SSH known hosts.
+    sudo_user: "{{ deployment_name }}"
+    copy: src=known_hosts dest="{{ project_root }}/.ssh/known_hosts" mode=0600
+
+  - name: Upload SSH key.
+    sudo_user: "{{ deployment_name }}"
+    copy: src=key dest="{{project_root}}/.ssh/id_rsa" mode=0600
+
+  - name: Install supervisor configuration file.
+    template: src=supervisor.{{mode}}.conf.j2 dest=/etc/supervisor/conf.d/{{deployment_name}}.conf
+    register: supervisor_conf
+
+  - name: Install gunicorn conf file.
+    template: src=gunicorn.conf.j2 dest=/etc/{{deployment_name}}_gunicorn.py mode=777
+
+  - name: Install newrelic ini file.
+    template: src=newrelic.ini.j2 dest=/etc/{{deployment_name}}_newrelic.ini mode=777
+
+  - name: Install NGINX site conf file.
+    template: src=nginx.{{mode}}.conf.j2 dest=/etc/nginx/sites-enabled/{{deployment_name}}
+    register: nginx_sites
+
+  - name: Install bash profile to user.
+    template: src=bash_profile  dest={{project_root}}/.bash_profile
+  
+  - name: Restart NGINX
+    service: name=nginx state=restarted
+    sudo_user: root
+    when: nginx_sites.changed
+
+  - name: Restart supervisor
+    service: name=supervisor state=restarted enabled=yes
+    sudo_user: root
+    when: supervisor_conf.changed

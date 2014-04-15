@@ -1,0 +1,44 @@
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+ADMINS = (
+    ('Five Q', 'django_{{ deployment_name }}@fiveq.com'),
+)
+MANAGERS = ADMINS
+FILER_DEBUG=False
+
+if DEBUG:
+    INTERNAL_IPS = ('127.0.0.1')
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.{{ dj_db_adapter }}', 
+        'NAME': '{{ dbname }}',
+        'USER': '{{ dbuser }}',
+        'PASSWORD': '{{ dbpassword }}',
+        'HOST': '127.0.0.1'
+    }
+}
+
+def custom_show_toolbar(request):
+    return True  # Always show toolbar, for example purposes only.
+
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+    'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
+    'HIDE_DJANGO_SQL': False,
+    'TAG': 'div',
+    'ENABLE_STACKTRACES' : True,
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211', # for memcache
+    }
+}
+
+SSL = True
+EMAIL_PORT = 8025 # default port for fakemail.py
+SERVER_EMAIL = DEFAULT_FROM_EMAIL = 'no-reply@{{ domain_name }}'
+
