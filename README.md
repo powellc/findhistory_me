@@ -1,9 +1,7 @@
 findhistory.me
 ==============
 
-Master: [![Build
-Status](https://travis-ci.org/powellc/findhistory_me.svg?branch=master)](https://travis-ci.org/powellc/findhistory_me)
-Develop: [![Build
+[![Build
 Status](https://travis-ci.org/powellc/findhistory_me.svg?branch=develop)](https://travis-ci.org/powellc/findhistory_me)
 
 Bangor History Museum wants a website. They also have 40,000 unique historical artifacts.
@@ -21,4 +19,5 @@ Proposal
 Archiving information is a done deal. We can store data very easily in all kinds of ways. 
 But what about providing ways for people to FIND history? This should actually be a 
 solvable problem. Location-based data, HTML5 location-aware browsers, and cell connections.
+
 
