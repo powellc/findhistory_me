@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#Set up the environment
+#export HUBOT_HIPCHAT_JID=" hipchat_jid }}"
+#export HUBOT_HIPCHAT_PASSWORD=" hipchat_password }}"
+#export HUBOT_HIPCHAT_DEBUG=" hipchat_debug | default('false') }}"
+export HUBOT_HALL_EMAIL="{{ hubot_email }}"
+export HUBOT_HALL_PASSWORD="{{ hubot_password }}"
+
+cd {{ project_root}}
+bin/hubot -a hall -n floyd

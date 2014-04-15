@@ -1,0 +1,56 @@
+---
+- name: Pull sources from the repository.
+  git: repo="{{project_repo}}" dest="{{project_root}}/{{ repo_name }}/" version="{{branch}}"
+  sudo_user: "{{deployment_name}}"
+  register: git
+  when: mode != 'local'
+  tags:
+    - deploy
+    - clone
+
+- name: Upgrade the Virtualenv.
+  pip: requirements="{{project_root}}/{{ repo_name }}{{etc_path}}/requirements.txt" virtualenv={{project_root}}/venv/
+  sudo_user: "{{deployment_name}}"
+  register: venv
+  tags:
+    - deploy
+    - reqs
+
+- name: Install Django settings file.
+  template: src="local_settings.{{mode}}.py.j2" dest={{project_root}}/{{ repo_name }}{{ code_root }}local_settings.py
+  sudo_user: "{{deployment_name}}"
+  register: settings_file
+  tags:
+    - deploy
+
+- name: Sync Django database.
+  django_manage: command=syncdb app_path={{ project_root }}/{{repo_name}} settings={{ settings_path }} virtualenv="{{project_root}}/venv"
+  sudo_user: "{{deployment_name}}"
+  when: mode != 'local'
+  tags:
+    - deploy
+    - syncdb
+
+- name: Migrate Django database.
+  django_manage: command=migrate skip=true app_path={{ project_root }}/{{repo_name}} settings={{ settings_path }} virtualenv="{{project_root}}/venv"
+  sudo_user: "{{deployment_name}}"
+  when: mode != 'local'
+  tags:
+    - deploy
+    - migrate
+
+- name: Generate Django media.
+  django_manage: command=collectstatic app_path={{ project_root }}/{{repo_name}} settings={{ settings_path }} virtualenv="{{project_root}}/venv"
+  sudo_user: "{{deployment_name}}"
+  environment:
+    PYTHONPATH: "{{ project_root }}"
+  when: collectstatic
+  tags:
+    - deploy
+    - collectstatic
+
+- name: Restart Application
+  supervisorctl: name={{deployment_name}} state=restarted 
+  tags:
+    - deploy
+    - restart

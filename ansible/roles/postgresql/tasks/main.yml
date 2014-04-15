@@ -1,0 +1,125 @@
+---
+- name: Install PostgreSQL with locale set
+  shell: LANG={{locale}} LC_COLLATE={{locale}} LC_CTYPE={{locale}} LC_MESSAGES={{locale}} LC_MONETARY={{locale}} LC_NUMERIC={{locale}} LC_TIME={{locale}} LC_ALL={{locale}}  apt-get install -y postgresql-9.1
+
+- name: Install PostgreSQL Dev Tools
+  apt: pkg={{item}} state=installed
+  with_items:
+    - postgresql-server-dev-9.1
+    - postgresql-contrib-9.1
+    - python-psycopg2
+
+- name: Install PostgreSQL GIS tools
+  apt: pkg={{item}} state=installed
+  with_items:
+    - postgresql-9.1-postgis
+    - postgis
+    - libgdal1-dev
+    - libgeos-dev
+    - libgeos-c1 
+    - libxml2 
+    - libxml2-dev
+  when: postgis == True
+
+- name: Change access permissions for PostgreSQL
+  copy: src=pg_hba.conf dest=/etc/postgresql/9.1/main/pg_hba.conf
+  sudo_user: postgres
+  register: pg_file
+
+- name: Reload PostgreSQL if it changed
+  service: name=postgresql state=reloaded enabled=yes
+  when: pg_file.changed
+
+- name: Create the database.
+  postgresql_db: db={{dbname}}
+  sudo_user: postgres
+  when: not postgis
+
+# The following only runs if we set the postgis flag in the playbook
+
+- name: Ensure postgis_template database exists
+  action: postgresql_db db=postgis_template state=present
+  sudo_user: postgres
+  register: createdb_postgis_template
+  when: postgis == True
+ 
+- name: Make postgis_template a template
+  action: command psql -d postgis_template -c "UPDATE pg_database SET datistemplate=true WHERE datname='postgis_template';"
+  sudo_user: postgres
+  when: postgis and createdb_postgis_template.changed
+ 
+- name: Run the PostGIS SQL scripts
+  action: command psql -d postgis_template -f $item
+  sudo_user: postgres
+  with_items:
+    - /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql
+    - /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql
+    - /usr/share/postgresql/9.1/contrib/postgis_comments.sql
+  when: postgis and createdb_postgis_template.changed
+
+- name: Create the PostGIS database.
+  postgresql_db: db={{dbname}} template=postgis_template
+  sudo_user: postgres
+  when: postgis
+
+- name: Create database user and give them access.
+  postgresql_user: db={{dbname}} user={{dbuser}} password={{dbpassword}} state=present priv=ALL role_attr_flags=SUPERUSER
+  sudo_user: postgres
+
+
+# What follows bootstraps the production database from a backup on S3
+# You must have aws_access_key and aws_secret_key variables in your
+# playbook for these to run
+
+- name: Install Boto for S3
+  pip: name=boto
+  when: mode != 'local'
+  tags:
+    - copy-db
+
+- name: Grab a copy of the database
+  s3: 
+    bucket=fiveq-db-backups 
+    object={{ dbname}}-nightly.sql.bz2 
+    dest=/tmp/{{ dbname }}-nightly.sql.bz2 
+    mode=get
+    aws_access_key={{ s3_access_key }}
+    aws_secret_key={{ s3_secret_key }}
+  when: mode != 'local'
+  tags:
+    - copy-db
+
+- name: Unzip the database backup
+  shell: bunzip2 /tmp/{{ dbname }}-nightly.sql.bz2
+  when: aws_secret_key is defined
+  tags:
+    - copy-db
+
+- name: Copy the production database
+  shell: psql -d {{dbname}} -f /tmp/{{ dbname }}-nightly.sql
+  sudo_user: postgres
+  when: mode != 'local'
+  tags:
+    - copy-db
+
+- name: Copy db_dump script
+  copy: src=db_dump.sh dest=/var/lib/postgresql/db_dump.sh
+  sudo_user: postgres
+  when: mode != 'local'
+  tags:
+    - db-backup
+
+- name: Install S3 Uploading of db dumps
+  template: src=upload2s3.py.j2 dest=/var/lib/postgresql/upload2s3.py
+  sudo_user: postgres
+  when: mode != 'local'
+  tags:
+    - db-backup
+
+- name: Create cronjob to run at 3 a.m. EST
+  cron: name="Backup DB locally and to S3" hour="3" job="db_dump.sh > /dev/null"
+  sudo_user: postgres
+  when: mode != 'local'
+  tags:
+    - db-backup
+

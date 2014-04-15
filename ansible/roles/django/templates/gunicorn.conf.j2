@@ -1,0 +1,8 @@
+import multiprocessing
+
+bind = '127.0.0.1:30000'
+logfile = "/var/www/vhosts/{{ deployment_name }}/logs/gunicorn.log"
+max_requests = 1500
+workers = multiprocessing.cpu_count() * 2 + 1
+proc_name = '{{ deployment_name }}_gunicorn'
+timeout = 180

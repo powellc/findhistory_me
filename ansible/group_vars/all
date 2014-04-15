@@ -1,0 +1,13 @@
+common_packages:
+  - vim
+  - git
+  - mercurial
+  - subversion
+  - fail2ban
+  - memcached
+  - libmemcached-dev
+  - build-essential
+  - libxml2-dev
+  - libxslt1-dev
+  - libjpeg-dev
+  - postfix

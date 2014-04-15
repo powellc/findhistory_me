@@ -3,3 +3,4 @@
 local_settings.py
 dev.db
 venv
+.vagrant

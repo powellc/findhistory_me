@@ -1,0 +1,56 @@
+---
+# findhistory_me Vagrant playbook
+- hosts: vagrant
+  gather_facts: False
+  user: vagrant
+  sudo: True
+  roles:
+    - role: vagrant
+
+- hosts: vagrant
+  gather_facts: False
+  user: ubuntu
+  sudo: True
+  vars:
+    domain_name: findhistory.me
+    mode: local
+    hostname: fhm-local
+    app_name: "Find History"
+    repo_name: findhistory_me
+    deployment_name: fhm_local
+    project_root: /var/www/vhosts/fhm_local
+    project_repo: git@github.com:powellc/findhistory_me.git
+    domain_name: findhistory.me
+    dbname: fhm 
+    dbuser: fhm
+    dbpassword: LKJnzsfoij2308JK932l0
+    dbdump_file: findhistory-nightly.sql
+    locale: en_US.UTF-8
+    timezone: America/New_York
+    collectstatic: True
+    code_root: /
+    project_path: /
+    settings_path: settings
+    python_path: /var/www/vhosts/fhm_local
+    etc_path: /
+    postgis: True
+    system_packages:
+      - git
+      - memcached
+      - build-essential
+      - libxml2-dev
+      - libxslt1-dev
+      - libjpeg-dev
+      - python-dev
+      - python-pyinotify
+      - postfix
+  roles:
+    - role: common
+    - role: postgresql
+    - role: nginx
+    - role: django
+
+  tasks:
+    - include: roles/vagrant/tasks/setup.yml
+    - include: roles/django/tasks/deploy.yml
+    - include: roles/vagrant/tasks/pg_sync.yml

@@ -1,0 +1,28 @@
+---
+- name: Download Wordpress 
+  get_url: url=http://wordpress.org/wordpress-{{ wp_version }}.tar.gz dest={{project_root}}/wordpress-{{ wp_version }}.tar.gz
+           sha256sum="{{ wp_sha256sum }}"
+
+- name: Extract archive
+  command: chdir={{ project_root}}/ /bin/tar xvf wordpress-{{ wp_version }}.tar.gz creates={{project_root}}/wordpress
+
+- name: Change ownership of Wordpress installation
+  file: path={{project_root}}/wordpress/ owner={{deployment_name}} group={{deployment_name}} state=directory recurse=yes
+
+- name: Fetch random salts for Wordpress config
+  local_action: command curl -k https://api.wordpress.org/secret-key/1.1/salt/
+  sudo: False
+  register: wp_salt 
+
+- name: Copy Wordpress config file
+  template: src=wp-config.php dest={{project_root}}/wordpress/
+
+- name: Install NGINX site conf file.
+  template: src=nginx.conf.j2 dest='/etc/nginx/sites-enabled/{{deployment_name}}'
+  register: nginx_sites
+
+- name: Restart NGINX
+  service: name=nginx state=restarted
+  sudo_user: root
+  when: nginx_sites.changed
+

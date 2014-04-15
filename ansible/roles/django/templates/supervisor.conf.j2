@@ -1,0 +1,9 @@
+[program:{{ deployment_name }}]
+command = /var/www/vhosts/{{ deployment_name }}/venv/bin/newrelic-admin run-program /var/www/vhosts/{{ deployment_name }}/venv/bin/gunicorn_django -c /etc/{{ deployment_name }}_gunicorn.py 
+directory = /var/www/vhosts/{{ deployment_name }}/code
+user = {{ deployment_name }} 
+autostart = true
+autorestart = true
+stdout_logfile = /var/www/vhosts/{{ deployment_name }}/logs/supervisord.log
+redirect_stderr = true
+environment = NEW_RELIC_CONFIG_FILE='/etc/{{ deployment_name }}_newrelic.ini'

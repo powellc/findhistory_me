@@ -1,0 +1,8 @@
+[program:{{ deployment_name }}]
+command = {{ project_root }}/start.sh
+directory = {{ project_root }}
+user = {{ deployment_name }} 
+autostart = true
+autorestart = true
+stdout_logfile = {{project_root}}/logs/supervisord.log
+redirect_stderr = true

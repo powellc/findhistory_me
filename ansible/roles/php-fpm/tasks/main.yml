@@ -1,0 +1,21 @@
+---
+- name: Install php-fpm and deps 
+  apt: name={{ item }} state=present
+  with_items:
+    - php5-fpm
+    - php5-enchant
+    - php5-mysqlnd
+
+- name: Disable default pool
+  file: path=/etc/php5/fpm/pool.d/www.conf state=absent
+  register: php_conf
+ 
+- name: Copy php-fpm configuration
+  template: src=wordpress.conf dest=/etc/php5/fpm/pool.d/
+  register: php_conf
+
+- name: Restart NGINX
+  service: name=php5-fpm state=restarted
+  sudo_user: root
+  when: php_conf.changed
+

@@ -1,0 +1,4 @@
+---
+# Used in nginx templates
+code_root: ${project_root}/code/${deployment_name}
+settings_path: ${deployment_name}.settings

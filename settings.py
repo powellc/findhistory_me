@@ -40,13 +40,18 @@ class Common(Configuration):
 
     PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
 
-    PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
+    GRAPPELLI_INSTALLED = False
+
+    TESTING = False
+
+    COMMENTS_NUM_LATEST = 10
 
     # Application definition
 
     INSTALLED_APPS = (
         "history_theme",
         "django.contrib.admin",
+        "django.contrib.comments",
         "django.contrib.auth",
         "django.contrib.contenttypes",
         "django.contrib.redirects",
@@ -55,6 +60,7 @@ class Common(Configuration):
         "django.contrib.sitemaps",
         "django.contrib.staticfiles",
         "django.contrib.gis",
+        'localflavor',
         "artifacts",
         "dajaxice",
         "sorl.thumbnail",
@@ -67,12 +73,11 @@ class Common(Configuration):
         "mezzanine.pages",
         "mezzanine.galleries",
         "mezzanine.twitter",
-        #"mezzanine.accounts",
-        #"mezzanine.mobile",
+        "mezzanine.accounts",
+        "mezzanine.mobile",
         "django_extensions",
         "compressor",
         PACKAGE_NAME_FILEBROWSER,
-        PACKAGE_NAME_GRAPPELLI,
     )
 
     TEMPLATE_CONTEXT_PROCESSORS = Configuration.TEMPLATE_CONTEXT_PROCESSORS + \
@@ -122,7 +127,9 @@ class Common(Configuration):
         os.path.join(BASE_DIR, 'db.sqlite3'),
         environ=True))
 
-    CACHES = values.CacheURLValue('memcached://127.0.0.1:11211')
+    NEVERCACHE_KEY = values.Value('klladsf-wefkjlwef-wekjlwef--wefjlkjfslkxvl')
+
+    #CACHES = values.CacheURLValue('memcached://127.0.0.1:11211')
 
     # Internationalization
     # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -165,6 +172,8 @@ class Common(Configuration):
     AWS_STORAGE_BUCKET_NAME = 'findhistory_me'
     AWS_HEADERS = {'ExpiresDefault': 'access plus 30 days',
                    'Cache-Control': 'max-age=86400', }
+
+    AUTHENTICATION_BACKENDS = ("mezzanine.core.auth_backends.MezzanineBackend",)
 
     # Account activations automatically expire after this period
     ACCOUNT_ACTIVATION_DAYS = 14
@@ -209,13 +218,11 @@ class Dev(Common):
     DEBUG = TEMPLATE_DEBUG = True
 
     DATABASES = values.DatabaseURLValue(
-        'postgres://fhm:kjlkjzluijsdfkj@localhost/fhm')
+        'postgis://localhost/fhm')
 
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
     INSTALLED_APPS = Common.INSTALLED_APPS + ('debug_toolbar',)
-
-    DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
 
 
 class Prod(Common):
@@ -230,7 +237,7 @@ class Prod(Common):
     EMAIL_HOST_USER = values.Value()
     EMAIL_HOST_PASSWORD = values.Value()
     EMAIL_PORT = values.Value()
-    EMAIL_USE_TLS = values.BooleanValue()
+    EMAIL_USE_TLS = values.BooleanValue(True)
 
     DSN_VALUE = values.Value()
 
